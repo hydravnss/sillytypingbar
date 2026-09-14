@@ -1,12 +1,12 @@
 {
-  "display_name": "SillyTypingBar",
-  "loading_order": 900,
-  "requires": [],
-  "optional": [],
-  "js": "index.js",
-  "css": "style.css",
-  "author": "hydravnss",
-  "version": "1.0.0",
-  "homePage": "https://github.com/hydravnss/sillytypingbar",
-  "auto_update": false
+    "display_name": "SillyTypingBar",
+    "loading_order": 900,
+    "requires": [],
+    "optional": [],
+    "js": "index.js",
+    "css": "style.css",
+    "author": "hydravnss",
+    "version": "1.1.0",
+    "homePage": "https://github.com/hydravnss/sillytypingbar",
+    "auto_update": false
 }
