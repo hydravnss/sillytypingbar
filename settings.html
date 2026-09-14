@@ -1,0 +1,346 @@
+<div id="sillytypingbar-settings">
+
+    <div class="inline-drawer">
+
+        <div class="inline-drawer-toggle inline-drawer-header">
+
+            <b>
+                SillyTypingBar
+            </b>
+
+            <div class="inline-drawer-icon fa-solid fa-circle-chevron-down down"></div>
+
+        </div>
+
+
+        <div class="inline-drawer-content">
+
+            <!-- ENABLE -->
+
+            <label class="checkbox_label">
+
+                <input
+                    id="stb-enabled"
+                    type="checkbox"
+                >
+
+                <span>
+                    Activer SillyTypingBar
+                </span>
+
+            </label>
+
+
+            <hr class="sysHR">
+
+
+            <!-- POSITION -->
+
+            <div class="stb-setting">
+
+                <label>
+                    Position de la barre
+                </label>
+
+                <select id="stb-position">
+
+                    <option value="bottom">
+                        En bas
+                    </option>
+
+                    <option value="top">
+                        En haut
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- WIDTH -->
+
+            <div class="stb-setting">
+
+                <label>
+                    Largeur
+                    <span id="stb-width-value"></span>
+                </label>
+
+                <input
+                    id="stb-width"
+                    type="range"
+                    min="50"
+                    max="100"
+                    step="1"
+                >
+
+            </div>
+
+
+            <!-- HEIGHT -->
+
+            <div class="stb-setting">
+
+                <label>
+                    Hauteur
+                    <span id="stb-height-value"></span>
+                </label>
+
+                <input
+                    id="stb-height"
+                    type="range"
+                    min="42"
+                    max="100"
+                    step="1"
+                >
+
+            </div>
+
+
+            <!-- RADIUS -->
+
+            <div class="stb-setting">
+
+                <label>
+                    Arrondi
+                    <span id="stb-radius-value"></span>
+                </label>
+
+                <input
+                    id="stb-radius"
+                    type="range"
+                    min="0"
+                    max="60"
+                    step="1"
+                >
+
+            </div>
+
+
+            <hr class="sysHR">
+
+
+            <!-- BORDER -->
+
+            <div class="stb-setting">
+
+                <label>
+                    Épaisseur de la bordure
+                    <span id="stb-border-width-value"></span>
+                </label>
+
+                <input
+                    id="stb-border-width"
+                    type="range"
+                    min="0"
+                    max="5"
+                    step="1"
+                >
+
+            </div>
+
+
+            <div class="stb-setting">
+
+                <label>
+                    Couleur de la bordure
+                </label>
+
+                <input
+                    id="stb-border-color"
+                    type="color"
+                >
+
+            </div>
+
+
+            <!-- BACKGROUND -->
+
+            <div class="stb-setting">
+
+                <label>
+                    Fond
+                </label>
+
+                <input
+                    id="stb-background"
+                    type="text"
+                    placeholder="rgba(0,0,0,0.92)"
+                >
+
+            </div>
+
+
+            <hr class="sysHR">
+
+
+            <!-- ACCENT -->
+
+            <div class="stb-setting">
+
+                <label>
+                    Couleur de l'accent
+                </label>
+
+                <input
+                    id="stb-accent-color"
+                    type="color"
+                >
+
+            </div>
+
+
+            <div class="stb-setting">
+
+                <label>
+                    Largeur de l'accent
+                    <span id="stb-accent-width-value"></span>
+                </label>
+
+                <input
+                    id="stb-accent-width"
+                    type="range"
+                    min="1"
+                    max="10"
+                    step="1"
+                >
+
+            </div>
+
+
+            <!-- TEXT -->
+
+            <div class="stb-setting">
+
+                <label>
+                    Taille du texte
+                    <span id="stb-text-size-value"></span>
+                </label>
+
+                <input
+                    id="stb-text-size"
+                    type="range"
+                    min="11"
+                    max="26"
+                    step="1"
+                >
+
+            </div>
+
+
+            <hr class="sysHR">
+
+
+            <!-- MARGINS -->
+
+            <div class="stb-setting">
+
+                <label>
+                    Marge horizontale
+                    <span id="stb-horizontal-margin-value"></span>
+                </label>
+
+                <input
+                    id="stb-horizontal-margin"
+                    type="range"
+                    min="0"
+                    max="60"
+                    step="1"
+                >
+
+            </div>
+
+
+            <div class="stb-setting">
+
+                <label>
+                    Marge verticale
+                    <span id="stb-vertical-margin-value"></span>
+                </label>
+
+                <input
+                    id="stb-vertical-margin"
+                    type="range"
+                    min="0"
+                    max="40"
+                    step="1"
+                >
+
+            </div>
+
+
+            <!-- BLUR -->
+
+            <div class="stb-setting">
+
+                <label>
+                    Flou
+                    <span id="stb-blur-value"></span>
+                </label>
+
+                <input
+                    id="stb-blur"
+                    type="range"
+                    min="0"
+                    max="30"
+                    step="1"
+                >
+
+            </div>
+
+
+            <hr class="sysHR">
+
+
+            <!-- CHARACTER NAME -->
+
+            <label class="checkbox_label">
+
+                <input
+                    id="stb-placeholder-character"
+                    type="checkbox"
+                >
+
+                <span>
+                    Afficher le nom du personnage dans la barre vide
+                </span>
+
+            </label>
+
+
+            <!-- SHADOW -->
+
+            <label class="checkbox_label">
+
+                <input
+                    id="stb-shadow"
+                    type="checkbox"
+                >
+
+                <span>
+                    Ombre
+                </span>
+
+            </label>
+
+
+            <hr class="sysHR">
+
+
+            <button
+                id="stb-reset"
+                class="menu_button"
+                type="button"
+            >
+
+                <i class="fa-solid fa-rotate-left"></i>
+
+                Réinitialiser
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
