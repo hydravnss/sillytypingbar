@@ -12,10 +12,8 @@ import {
 
 const extensionName = "sillytypingbar";
 
-
 const defaultSettings = {
     enabled: true,
-
     position: "bottom",
 
     width: 96,
@@ -42,8 +40,10 @@ const defaultSettings = {
 };
 
 
+let originalParent = null;
+let originalNextSibling = null;
+let portal = null;
 let initialized = false;
-let refreshTimer = null;
 
 
 /* =========================================================
@@ -72,161 +72,229 @@ function getSettings() {
 
 function applySettings() {
 
-    const settings = getSettings();
+    const s = getSettings();
     const root = document.documentElement;
 
-    root.style.setProperty(
-        "--stb-width",
-        `${settings.width}%`,
-    );
-
-    root.style.setProperty(
-        "--stb-height",
-        `${settings.height}px`,
-    );
-
-    root.style.setProperty(
-        "--stb-radius",
-        `${settings.radius}px`,
-    );
+    root.style.setProperty("--stb-width", `${s.width}%`);
+    root.style.setProperty("--stb-height", `${s.height}px`);
+    root.style.setProperty("--stb-radius", `${s.radius}px`);
 
     root.style.setProperty(
         "--stb-border-width",
-        `${settings.border_width}px`,
+        `${s.border_width}px`,
     );
 
     root.style.setProperty(
         "--stb-border-color",
-        settings.border_color,
+        s.border_color,
     );
 
     root.style.setProperty(
         "--stb-background",
-        settings.background,
+        s.background,
     );
 
     root.style.setProperty(
         "--stb-accent-color",
-        settings.accent_color,
+        s.accent_color,
     );
 
     root.style.setProperty(
         "--stb-accent-width",
-        `${settings.accent_width}px`,
+        `${s.accent_width}px`,
     );
 
     root.style.setProperty(
         "--stb-text-size",
-        `${settings.text_size}px`,
+        `${s.text_size}px`,
     );
 
     root.style.setProperty(
         "--stb-horizontal-margin",
-        `${settings.horizontal_margin}px`,
+        `${s.horizontal_margin}px`,
     );
 
     root.style.setProperty(
         "--stb-vertical-margin",
-        `${settings.vertical_margin}px`,
+        `${s.vertical_margin}px`,
     );
 
     root.style.setProperty(
         "--stb-blur",
-        `${settings.blur}px`,
+        `${s.blur}px`,
     );
 
     root.classList.toggle(
         "stb-disabled",
-        !settings.enabled,
+        !s.enabled,
     );
 
     root.classList.toggle(
         "stb-position-top",
-        settings.position === "top",
+        s.position === "top",
     );
 
     root.classList.toggle(
         "stb-position-bottom",
-        settings.position === "bottom",
+        s.position === "bottom",
     );
 
     root.classList.toggle(
         "stb-no-shadow",
-        !settings.shadow,
+        !s.shadow,
     );
 }
 
 
 /* =========================================================
-   FIND / PREPARE NATIVE SILLYTAVERN INPUT
+   CREATE PORTAL
    ========================================================= */
 
-function decorateSendForm() {
+function createPortal() {
+
+    if (portal && document.body.contains(portal)) {
+        return portal;
+    }
+
+    portal = document.createElement("div");
+
+    portal.id = "sillytypingbar-portal";
+
+    portal.setAttribute(
+        "data-sillytypingbar",
+        "true",
+    );
+
+    document.body.appendChild(portal);
+
+    return portal;
+}
+
+
+/* =========================================================
+   MOVE NATIVE FORM OUTSIDE CHAT
+   ========================================================= */
+
+function moveFormToPortal() {
 
     const formSheld =
         document.getElementById("form_sheld");
 
-    const sendForm =
-        document.getElementById("send_form");
-
-    const textarea =
-        document.getElementById("send_textarea");
-
-    if (!formSheld || !sendForm) {
+    if (!formSheld) {
         return false;
     }
+
+    const target = createPortal();
+
+    if (
+        formSheld.parentElement === target
+    ) {
+        return true;
+    }
+
+    if (!originalParent) {
+
+        originalParent =
+            formSheld.parentElement;
+
+        originalNextSibling =
+            formSheld.nextSibling;
+    }
+
+    target.appendChild(formSheld);
 
     formSheld.classList.add(
         "sillytypingbar-host",
     );
 
-    sendForm.classList.add(
-        "sillytypingbar",
-    );
+    const sendForm =
+        document.getElementById("send_form");
+
+    if (sendForm) {
+
+        sendForm.classList.add(
+            "sillytypingbar",
+        );
+    }
+
+    const textarea =
+        document.getElementById("send_textarea");
 
     if (textarea) {
+
         textarea.classList.add(
             "sillytypingbar-textarea",
         );
     }
-
-    const left =
-        document.getElementById("leftSendForm");
-
-    if (left) {
-        left.classList.add(
-            "sillytypingbar-left",
-        );
-    }
-
-    const right =
-        document.getElementById("rightSendForm");
-
-    if (right) {
-        right.classList.add(
-            "sillytypingbar-right",
-        );
-    }
-
-    updatePlaceholder();
 
     return true;
 }
 
 
 /* =========================================================
-   CHARACTER NAME
+   RESTORE NATIVE FORM
    ========================================================= */
 
-function getCurrentCharacterName() {
+function restoreForm() {
+
+    const formSheld =
+        document.getElementById("form_sheld");
+
+    if (
+        !formSheld ||
+        !originalParent
+    ) {
+        return;
+    }
+
+    if (
+        originalNextSibling &&
+        originalNextSibling.parentNode === originalParent
+    ) {
+
+        originalParent.insertBefore(
+            formSheld,
+            originalNextSibling,
+        );
+
+    } else {
+
+        originalParent.appendChild(
+            formSheld,
+        );
+    }
+
+    formSheld.classList.remove(
+        "sillytypingbar-host",
+    );
+
+    const sendForm =
+        document.getElementById("send_form");
+
+    if (sendForm) {
+
+        sendForm.classList.remove(
+            "sillytypingbar",
+        );
+    }
+
+    originalParent = null;
+    originalNextSibling = null;
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+   ========================================================= */
+
+function getCharacterName() {
 
     try {
 
         const context = getContext();
 
         if (
-            context &&
-            context.characters &&
+            context?.characters &&
             context.characterId !== undefined
         ) {
 
@@ -247,7 +315,7 @@ function getCurrentCharacterName() {
     } catch (error) {
 
         console.warn(
-            "[SillyTypingBar] Character name error:",
+            "[SillyTypingBar]",
             error,
         );
     }
@@ -256,22 +324,20 @@ function getCurrentCharacterName() {
 }
 
 
-/* =========================================================
-   PLACEHOLDER
-   ========================================================= */
-
 function updatePlaceholder() {
 
-    const settings = getSettings();
-
     const textarea =
-        document.getElementById("send_textarea");
+        document.getElementById(
+            "send_textarea",
+        );
 
     if (!textarea) {
         return;
     }
 
-    if (!settings.placeholder_character) {
+    const s = getSettings();
+
+    if (!s.placeholder_character) {
 
         textarea.placeholder =
             "Type a message...";
@@ -279,45 +345,32 @@ function updatePlaceholder() {
         return;
     }
 
-    const name =
-        getCurrentCharacterName();
-
     textarea.placeholder =
-        name || "Type a message...";
+        getCharacterName() ||
+        "Type a message...";
 }
 
 
 /* =========================================================
-   REFRESH
+   APPLY BAR
    ========================================================= */
 
-function refreshBar() {
+function applyBar() {
 
-    if (!getSettings().enabled) {
+    const s = getSettings();
+
+    applySettings();
+
+    if (!s.enabled) {
+
+        restoreForm();
+
         return;
     }
 
-    decorateSendForm();
-}
+    moveFormToPortal();
 
-
-/* =========================================================
-   SAFE REFRESH
-   ========================================================= */
-
-function scheduleRefresh() {
-
-    if (refreshTimer) {
-        clearTimeout(refreshTimer);
-    }
-
-    refreshTimer = setTimeout(() => {
-
-        refreshTimer = null;
-
-        refreshBar();
-
-    }, 100);
+    updatePlaceholder();
 }
 
 
@@ -359,67 +412,56 @@ async function loadSettingsPanel() {
             html,
         );
 
+        bindSettings();
+        refreshSettingsUI();
+
     } catch (error) {
 
         console.error(
-            "[SillyTypingBar] Settings loading failed:",
+            "[SillyTypingBar] Settings error:",
             error,
         );
-
-        return;
     }
-
-    bindSettings();
-    refreshSettingsUI();
 }
 
 
 /* =========================================================
-   SETTINGS BINDING
+   SETTINGS
    ========================================================= */
 
 function bindSettings() {
 
-    const settings = getSettings();
+    const s = getSettings();
 
 
     $("#stb-enabled")
-        .prop(
-            "checked",
-            settings.enabled,
-        )
+        .prop("checked", s.enabled)
         .on("change", function () {
 
-            settings.enabled =
-                this.checked;
+            s.enabled = this.checked;
 
             saveSettingsDebounced();
 
-            applySettings();
-
-            scheduleRefresh();
+            applyBar();
         });
 
 
     $("#stb-position")
-        .val(settings.position)
+        .val(s.position)
         .on("change", function () {
 
-            settings.position =
-                this.value;
+            s.position = this.value;
 
             saveSettingsDebounced();
 
-            applySettings();
-
-            scheduleRefresh();
+            applyBar();
         });
 
 
     bindRange(
         "#stb-width",
         "#stb-width-value",
-        settings,
+        s,
         "width",
         "%",
     );
@@ -427,7 +469,7 @@ function bindSettings() {
     bindRange(
         "#stb-height",
         "#stb-height-value",
-        settings,
+        s,
         "height",
         "px",
     );
@@ -435,7 +477,7 @@ function bindSettings() {
     bindRange(
         "#stb-radius",
         "#stb-radius-value",
-        settings,
+        s,
         "radius",
         "px",
     );
@@ -443,7 +485,7 @@ function bindSettings() {
     bindRange(
         "#stb-border-width",
         "#stb-border-width-value",
-        settings,
+        s,
         "border_width",
         "px",
     );
@@ -451,7 +493,7 @@ function bindSettings() {
     bindRange(
         "#stb-accent-width",
         "#stb-accent-width-value",
-        settings,
+        s,
         "accent_width",
         "px",
     );
@@ -459,7 +501,7 @@ function bindSettings() {
     bindRange(
         "#stb-text-size",
         "#stb-text-size-value",
-        settings,
+        s,
         "text_size",
         "px",
     );
@@ -467,7 +509,7 @@ function bindSettings() {
     bindRange(
         "#stb-horizontal-margin",
         "#stb-horizontal-margin-value",
-        settings,
+        s,
         "horizontal_margin",
         "px",
     );
@@ -475,7 +517,7 @@ function bindSettings() {
     bindRange(
         "#stb-vertical-margin",
         "#stb-vertical-margin-value",
-        settings,
+        s,
         "vertical_margin",
         "px",
     );
@@ -483,7 +525,7 @@ function bindSettings() {
     bindRange(
         "#stb-blur",
         "#stb-blur-value",
-        settings,
+        s,
         "blur",
         "px",
     );
@@ -491,19 +533,19 @@ function bindSettings() {
 
     bindText(
         "#stb-border-color",
-        settings,
+        s,
         "border_color",
     );
 
     bindText(
         "#stb-background",
-        settings,
+        s,
         "background",
     );
 
     bindText(
         "#stb-accent-color",
-        settings,
+        s,
         "accent_color",
     );
 
@@ -511,11 +553,11 @@ function bindSettings() {
     $("#stb-placeholder-character")
         .prop(
             "checked",
-            settings.placeholder_character,
+            s.placeholder_character,
         )
         .on("change", function () {
 
-            settings.placeholder_character =
+            s.placeholder_character =
                 this.checked;
 
             saveSettingsDebounced();
@@ -527,12 +569,11 @@ function bindSettings() {
     $("#stb-shadow")
         .prop(
             "checked",
-            settings.shadow,
+            s.shadow,
         )
         .on("change", function () {
 
-            settings.shadow =
-                this.checked;
+            s.shadow = this.checked;
 
             saveSettingsDebounced();
 
@@ -550,24 +591,15 @@ function bindSettings() {
 
             saveSettingsDebounced();
 
-            applySettings();
-
             refreshSettingsUI();
-
-            scheduleRefresh();
-
-            updatePlaceholder();
+            applyBar();
         });
 }
 
 
-/* =========================================================
-   RANGE HELPER
-   ========================================================= */
-
 function bindRange(
     selector,
-    valueSelector,
+    output,
     settings,
     key,
     suffix,
@@ -575,28 +607,21 @@ function bindRange(
 
     $(selector)
         .val(settings[key])
-        .on(
-            "input change",
-            function () {
+        .on("input change", function () {
 
-                settings[key] =
-                    Number(this.value);
+            settings[key] =
+                Number(this.value);
 
-                $(valueSelector).text(
-                    `${settings[key]}${suffix}`,
-                );
+            $(output).text(
+                `${settings[key]}${suffix}`,
+            );
 
-                saveSettingsDebounced();
+            saveSettingsDebounced();
 
-                applySettings();
-            },
-        );
+            applySettings();
+        });
 }
 
-
-/* =========================================================
-   TEXT HELPER
-   ========================================================= */
 
 function bindText(
     selector,
@@ -606,138 +631,124 @@ function bindText(
 
     $(selector)
         .val(settings[key])
-        .on(
-            "input change",
-            function () {
+        .on("input change", function () {
 
-                settings[key] =
-                    this.value;
+            settings[key] =
+                this.value;
 
-                saveSettingsDebounced();
+            saveSettingsDebounced();
 
-                applySettings();
-            },
-        );
+            applySettings();
+        });
 }
 
 
-/* =========================================================
-   REFRESH SETTINGS UI
-   ========================================================= */
-
 function refreshSettingsUI() {
 
-    const settings = getSettings();
-
+    const s = getSettings();
 
     $("#stb-enabled")
-        .prop(
-            "checked",
-            settings.enabled,
-        );
+        .prop("checked", s.enabled);
 
     $("#stb-position")
-        .val(settings.position);
+        .val(s.position);
 
-
-    setRangeUI(
+    setUI(
         "#stb-width",
         "#stb-width-value",
-        settings.width,
+        s.width,
         "%",
     );
 
-    setRangeUI(
+    setUI(
         "#stb-height",
         "#stb-height-value",
-        settings.height,
+        s.height,
         "px",
     );
 
-    setRangeUI(
+    setUI(
         "#stb-radius",
         "#stb-radius-value",
-        settings.radius,
+        s.radius,
         "px",
     );
 
-    setRangeUI(
+    setUI(
         "#stb-border-width",
         "#stb-border-width-value",
-        settings.border_width,
+        s.border_width,
         "px",
     );
 
-    setRangeUI(
+    setUI(
         "#stb-accent-width",
         "#stb-accent-width-value",
-        settings.accent_width,
+        s.accent_width,
         "px",
     );
 
-    setRangeUI(
+    setUI(
         "#stb-text-size",
         "#stb-text-size-value",
-        settings.text_size,
+        s.text_size,
         "px",
     );
 
-    setRangeUI(
+    setUI(
         "#stb-horizontal-margin",
         "#stb-horizontal-margin-value",
-        settings.horizontal_margin,
+        s.horizontal_margin,
         "px",
     );
 
-    setRangeUI(
+    setUI(
         "#stb-vertical-margin",
         "#stb-vertical-margin-value",
-        settings.vertical_margin,
+        s.vertical_margin,
         "px",
     );
 
-    setRangeUI(
+    setUI(
         "#stb-blur",
         "#stb-blur-value",
-        settings.blur,
+        s.blur,
         "px",
     );
 
-
     $("#stb-border-color")
-        .val(settings.border_color);
+        .val(s.border_color);
 
     $("#stb-background")
-        .val(settings.background);
+        .val(s.background);
 
     $("#stb-accent-color")
-        .val(settings.accent_color);
-
+        .val(s.accent_color);
 
     $("#stb-placeholder-character")
         .prop(
             "checked",
-            settings.placeholder_character,
+            s.placeholder_character,
         );
 
     $("#stb-shadow")
         .prop(
             "checked",
-            settings.shadow,
+            s.shadow,
         );
 }
 
 
-function setRangeUI(
+function setUI(
     selector,
-    valueSelector,
+    output,
     value,
     suffix,
 ) {
 
     $(selector).val(value);
 
-    $(valueSelector).text(
+    $(output).text(
         `${value}${suffix}`,
     );
 }
@@ -753,58 +764,17 @@ function registerEvents() {
         event_types.CHAT_CHANGED,
         () => {
 
-            setTimeout(() => {
-
-                scheduleRefresh();
-
-                updatePlaceholder();
-
-            }, 150);
+            setTimeout(
+                applyBar,
+                250,
+            );
         },
     );
-
 
     eventSource.on(
         event_types.CHARACTER_MESSAGE_RENDERED,
-        () => {
-
-            updatePlaceholder();
-
-        },
+        updatePlaceholder,
     );
-}
-
-
-/* =========================================================
-   LIGHTWEIGHT WATCHER
-   ========================================================= */
-
-function startWatcher() {
-
-    setInterval(() => {
-
-        const form =
-            document.getElementById(
-                "send_form",
-            );
-
-        const host =
-            document.getElementById(
-                "form_sheld",
-            );
-
-        if (
-            form &&
-            host &&
-            !form.classList.contains(
-                "sillytypingbar",
-            )
-        ) {
-
-            decorateSendForm();
-        }
-
-    }, 1000);
 }
 
 
@@ -822,20 +792,29 @@ async function init() {
 
     getSettings();
 
-    applySettings();
-
-    decorateSendForm();
-
     await loadSettingsPanel();
 
-    updatePlaceholder();
+    applyBar();
 
     registerEvents();
 
-    startWatcher();
+    /*
+     * SillyTavern peut recréer #form_sheld
+     * lors d'un changement de layout.
+     *
+     * On vérifie seulement toutes les 2 secondes.
+     */
+
+    setInterval(() => {
+
+        if (getSettings().enabled) {
+            applyBar();
+        }
+
+    }, 2000);
 
     console.log(
-        "[SillyTypingBar] Loaded successfully.",
+        "[SillyTypingBar] Portal mode loaded.",
     );
 }
 
