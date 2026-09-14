@@ -1,8 +1,10 @@
 /* =========================================================
    SILLYTYPINGBAR
+   ROBUST MOBILE VERSION
    ========================================================= */
 
 :root {
+
     --stb-width: 96%;
     --stb-height: 62px;
 
@@ -26,191 +28,332 @@
 
 
 /* =========================================================
-   MAIN BAR
+   HOST
    ========================================================= */
 
-html:not(.stb-disabled) #send_form.sillytypingbar {
+html:not(.stb-disabled)
+#form_sheld.sillytypingbar-host {
 
     position: fixed !important;
 
-    left: 50% !important;
+    left: 0 !important;
+    right: 0 !important;
 
-    width: var(--stb-width) !important;
+    bottom:
+        calc(
+            var(--stb-vertical-margin)
+            + env(safe-area-inset-bottom)
+        ) !important;
 
-    max-width: none !important;
+    top: auto !important;
 
-    min-height: var(--stb-height) !important;
-    height: var(--stb-height) !important;
+    width: 100% !important;
+
+    height: auto !important;
+    min-height: 0 !important;
 
     margin: 0 !important;
 
-    transform: translateX(-50%);
+    padding: 0 !important;
 
-    box-sizing: border-box;
+    background: transparent !important;
 
-    display: flex !important;
+    border: 0 !important;
 
-    align-items: center !important;
+    box-shadow: none !important;
 
-    flex-wrap: nowrap !important;
+    z-index: 99999 !important;
 
-    padding: 5px 10px !important;
+    overflow: visible !important;
+
+    pointer-events: none !important;
+}
+
+
+/* TOP */
+
+html.stb-position-top
+#form_sheld.sillytypingbar-host {
+
+    top:
+        calc(
+            var(--stb-vertical-margin)
+            + env(safe-area-inset-top)
+        ) !important;
+
+    bottom: auto !important;
+}
+
+
+/* =========================================================
+   MAIN BAR
+   ========================================================= */
+
+html:not(.stb-disabled)
+#send_form.sillytypingbar {
+
+    position: relative !important;
+
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+
+    width:
+        var(--stb-width) !important;
+
+    max-width:
+        none !important;
+
+    height:
+        var(--stb-height) !important;
+
+    min-height:
+        var(--stb-height) !important;
+
+    max-height:
+        none !important;
+
+    margin:
+        0 auto !important;
+
+    padding:
+        4px 8px !important;
+
+    box-sizing:
+        border-box !important;
+
+    display:
+        flex !important;
+
+    flex-direction:
+        row !important;
+
+    flex-wrap:
+        nowrap !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        flex-start !important;
+
+    gap:
+        0 !important;
+
+    background:
+        var(--stb-background) !important;
 
     border:
         var(--stb-border-width)
         solid
         var(--stb-border-color) !important;
 
-    border-radius: var(--stb-radius) !important;
+    border-radius:
+        var(--stb-radius) !important;
 
-    background:
-        var(--stb-background) !important;
+    box-shadow:
+        0 8px 30px
+        rgba(0, 0, 0, .35) !important;
 
     backdrop-filter:
-        blur(var(--stb-blur));
+        blur(var(--stb-blur)) !important;
 
     -webkit-backdrop-filter:
-        blur(var(--stb-blur));
+        blur(var(--stb-blur)) !important;
 
-    z-index: 9999 !important;
+    overflow:
+        visible !important;
 
-    overflow: visible !important;
+    opacity:
+        1 !important;
 
-    box-sizing: border-box !important;
+    visibility:
+        visible !important;
 
-    transition:
-        top 0.25s ease,
-        bottom 0.25s ease,
-        width 0.2s ease,
-        height 0.2s ease;
+    transform:
+        none !important;
+
+    pointer-events:
+        auto !important;
+
+    z-index:
+        100000 !important;
 }
 
 
 /* =========================================================
-   POSITION — BOTTOM
+   NO SHADOW
    ========================================================= */
 
-html.stb-position-bottom
+html.stb-no-shadow
 #send_form.sillytypingbar {
 
-    bottom: var(--stb-vertical-margin) !important;
-
+    box-shadow: none !important;
 }
 
 
 /* =========================================================
-   POSITION — TOP
+   LEFT AREA
    ========================================================= */
 
-html.stb-position-top
-#send_form.sillytypingbar {
-
-    top: var(--stb-vertical-margin) !important;
-
-}
-
-
-/* =========================================================
-   LEFT ICONS
-   ========================================================= */
-
-html:not(.stb-disabled)
 #send_form.sillytypingbar
 #leftSendForm {
 
-    display: flex !important;
+    display:
+        flex !important;
 
-    align-items: center !important;
+    flex:
+        0 0 auto !important;
 
-    flex-wrap: nowrap !important;
+    width:
+        auto !important;
 
-    flex: 0 0 auto !important;
+    min-width:
+        0 !important;
 
-    width: auto !important;
+    height:
+        100% !important;
 
-    height: 100% !important;
+    margin:
+        0 !important;
 
-    padding: 0 !important;
+    padding:
+        0 !important;
 
-    margin: 0 !important;
+    align-items:
+        center !important;
 
-    order: 1 !important;
+    justify-content:
+        flex-start !important;
 
+    flex-wrap:
+        nowrap !important;
+
+    order:
+        1 !important;
+
+    overflow:
+        visible !important;
 }
 
 
 /* =========================================================
-   RIGHT ICONS
+   RIGHT AREA
    ========================================================= */
 
-html:not(.stb-disabled)
 #send_form.sillytypingbar
 #rightSendForm {
 
-    display: flex !important;
+    display:
+        flex !important;
 
-    align-items: center !important;
+    flex:
+        0 0 auto !important;
 
-    justify-content: flex-end !important;
+    width:
+        auto !important;
 
-    flex-wrap: nowrap !important;
+    min-width:
+        0 !important;
 
-    flex: 0 0 auto !important;
+    height:
+        100% !important;
 
-    width: auto !important;
+    margin:
+        0 !important;
 
-    height: 100% !important;
+    padding:
+        0 !important;
 
-    padding: 0 !important;
+    align-items:
+        center !important;
 
-    margin: 0 !important;
+    justify-content:
+        flex-end !important;
 
-    order: 3 !important;
+    flex-wrap:
+        nowrap !important;
 
+    order:
+        3 !important;
+
+    overflow:
+        visible !important;
 }
 
 
 /* =========================================================
-   EXTENSION ICONS
-   Keep them visible
+   EXTENSION BUTTONS
    ========================================================= */
 
-html:not(.stb-disabled)
 #send_form.sillytypingbar
-#leftSendForm > div,
-
-html:not(.stb-disabled)
+#leftSendForm > *,
 #send_form.sillytypingbar
-#rightSendForm > div {
+#rightSendForm > * {
 
-    display: flex !important;
+    flex:
+        0 0 auto !important;
 
-    align-items: center !important;
-    justify-content: center !important;
+    width:
+        auto !important;
 
-    flex: 0 0 auto !important;
+    min-width:
+        0 !important;
 
-    opacity: 0.9;
+    display:
+        flex !important;
 
-    transition:
-        opacity 0.2s ease,
-        transform 0.2s ease;
+    align-items:
+        center !important;
 
+    justify-content:
+        center !important;
+
+    visibility:
+        visible !important;
+
+    opacity:
+        1 !important;
 }
 
 
-html:not(.stb-disabled)
+/* =========================================================
+   CENTRAL AREA
+   ========================================================= */
+
 #send_form.sillytypingbar
-#leftSendForm > div:hover,
+#nonQRFormItems {
 
-html:not(.stb-disabled)
-#send_form.sillytypingbar
-#rightSendForm > div:hover {
+    display:
+        flex !important;
 
-    opacity: 1;
+    flex:
+        1 1 auto !important;
 
-    transform: scale(1.05);
+    width:
+        auto !important;
 
+    min-width:
+        0 !important;
+
+    height:
+        100% !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    align-items:
+        center !important;
+
+    overflow:
+        visible !important;
+
+    order:
+        2 !important;
 }
 
 
@@ -218,61 +361,95 @@ html:not(.stb-disabled)
    TEXTAREA
    ========================================================= */
 
-html:not(.stb-disabled)
 #send_form.sillytypingbar
 #send_textarea {
 
-    order: 2 !important;
+    display:
+        block !important;
 
-    flex: 1 1 auto !important;
+    position:
+        relative !important;
 
-    min-width: 0 !important;
+    flex:
+        1 1 auto !important;
 
-    width: auto !important;
+    width:
+        auto !important;
 
-    height: 100% !important;
+    min-width:
+        40px !important;
 
-    min-height: 0 !important;
+    height:
+        100% !important;
 
-    max-height: none !important;
+    min-height:
+        42px !important;
 
-    margin: 0 !important;
+    max-height:
+        120px !important;
+
+    margin:
+        0 !important;
 
     padding:
-        0
-        18px !important;
+        8px 12px !important;
 
-    display: flex !important;
+    box-sizing:
+        border-box !important;
 
-    align-items: center !important;
+    resize:
+        none !important;
 
-    box-sizing: border-box !important;
+    overflow-x:
+        hidden !important;
 
-    resize: none !important;
+    overflow-y:
+        auto !important;
 
-    border: 0 !important;
+    background:
+        transparent !important;
 
-    outline: none !important;
+    border:
+        0 !important;
 
-    box-shadow: none !important;
+    outline:
+        none !important;
 
-    background: transparent !important;
+    box-shadow:
+        none !important;
 
-    color: var(--SmartThemeBodyColor) !important;
-
-    font-size: var(--stb-text-size) !important;
+    color:
+        var(--SmartThemeBodyColor) !important;
 
     font-family:
         -apple-system,
         BlinkMacSystemFont,
-        "SF Pro Display",
         "SF Pro Text",
+        "SF Pro Display",
         "Helvetica Neue",
         Arial,
         sans-serif !important;
 
-    font-weight: 500;
+    font-size:
+        var(--stb-text-size) !important;
 
+    line-height:
+        22px !important;
+
+    font-weight:
+        400 !important;
+
+    opacity:
+        1 !important;
+
+    visibility:
+        visible !important;
+
+    order:
+        2 !important;
+
+    z-index:
+        5 !important;
 }
 
 
@@ -280,60 +457,127 @@ html:not(.stb-disabled)
    PLACEHOLDER
    ========================================================= */
 
-html:not(.stb-disabled)
 #send_form.sillytypingbar
 #send_textarea::placeholder {
 
     color:
-        var(--SmartThemeBodyColor) !important;
+        #999999 !important;
 
-    opacity: 0.75 !important;
+    opacity:
+        .85 !important;
 
-    font-size: var(--stb-text-size) !important;
+    font-size:
+        var(--stb-text-size) !important;
 
-    white-space: nowrap;
-
+    white-space:
+        nowrap !important;
 }
 
 
 /* =========================================================
-   COLORED VERTICAL BAR
+   SEND BUTTON
    ========================================================= */
 
-html:not(.stb-disabled)
+#send_form.sillytypingbar
+#send_but {
+
+    flex:
+        0 0 40px !important;
+
+    width:
+        40px !important;
+
+    min-width:
+        40px !important;
+
+    height:
+        40px !important;
+
+    min-height:
+        40px !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        0 !important;
+
+    display:
+        flex !important;
+
+    align-items:
+        center !important;
+
+    justify-content:
+        center !important;
+
+    border-radius:
+        50% !important;
+
+    box-sizing:
+        border-box !important;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+#send_form.sillytypingbar button {
+
+    opacity:
+        1 !important;
+
+    visibility:
+        visible !important;
+}
+
+
+/* =========================================================
+   ACCENT BAR
+   ========================================================= */
+
 #send_form.sillytypingbar::before {
 
-    content: "";
+    content:
+        "" !important;
 
-    position: absolute;
+    position:
+        absolute !important;
 
-    left: 105px;
+    left:
+        70px !important;
 
-    top: 50%;
+    top:
+        50% !important;
 
-    width: var(--stb-accent-width);
+    width:
+        var(--stb-accent-width) !important;
 
-    height: 34px;
+    height:
+        32px !important;
 
-    transform: translateY(-50%);
+    transform:
+        translateY(-50%) !important;
 
-    border-radius: 10px;
+    border-radius:
+        10px !important;
 
     background:
-        var(--stb-accent-color);
+        var(--stb-accent-color) !important;
 
-    pointer-events: none;
+    pointer-events:
+        none !important;
 
-    z-index: 20;
-
+    z-index:
+        10 !important;
 }
 
 
 /* =========================================================
-   INPUT FOCUS
+   FOCUS
    ========================================================= */
 
-html:not(.stb-disabled)
 #send_form.sillytypingbar:focus-within {
 
     border-color:
@@ -342,28 +586,38 @@ html:not(.stb-disabled)
             var(--stb-border-color),
             white 18%
         ) !important;
-
 }
 
 
 /* =========================================================
-   SHADOW
+   CHAT SPACE
    ========================================================= */
 
-html:not(.stb-disabled)
-#send_form.sillytypingbar {
+html:not(.stb-position-top)
+#chat {
 
-    box-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.35);
-
+    padding-bottom:
+        calc(
+            var(--stb-height)
+            + 30px
+            + env(safe-area-inset-bottom)
+        ) !important;
 }
 
 
-html.stb-no-shadow
-#send_form.sillytypingbar {
+/* =========================================================
+   TOP MODE CHAT
+   ========================================================= */
 
-    box-shadow: none !important;
+html.stb-position-top
+#chat {
 
+    padding-top:
+        calc(
+            var(--stb-height)
+            + 30px
+            + env(safe-area-inset-top)
+        ) !important;
 }
 
 
@@ -378,63 +632,88 @@ html.stb-no-shadow
 
         width:
             calc(
-                100% - var(--stb-horizontal-margin)
+                100% -
+                var(--stb-horizontal-margin)
             ) !important;
 
-        max-width: none !important;
-
-        min-height:
+        height:
             var(--stb-height) !important;
 
-        height:
+        min-height:
             var(--stb-height) !important;
 
         padding:
             4px 7px !important;
 
+        border-radius:
+            var(--stb-radius) !important;
     }
 
 
-    html:not(.stb-disabled)
     #send_form.sillytypingbar
     #send_textarea {
 
+        flex:
+            1 1 auto !important;
+
+        width:
+            auto !important;
+
+        min-width:
+            40px !important;
+
+        height:
+            100% !important;
+
+        min-height:
+            42px !important;
+
         padding:
-            0 13px !important;
+            8px 10px !important;
 
         font-size:
             var(--stb-text-size) !important;
-
     }
 
 
-    html:not(.stb-disabled)
+    #send_form.sillytypingbar
+    #nonQRFormItems {
+
+        flex:
+            1 1 auto !important;
+
+        min-width:
+            0 !important;
+    }
+
+
+    #send_form.sillytypingbar
+    #send_but {
+
+        flex:
+            0 0 40px !important;
+
+        width:
+            40px !important;
+
+        min-width:
+            40px !important;
+
+        height:
+            40px !important;
+    }
+
+
     #send_form.sillytypingbar::before {
 
-        left: 70px;
-
-        height: 32px;
-
+        left:
+            70px !important;
     }
-
-
-    html:not(.stb-disabled)
-    #send_form.sillytypingbar
-    #leftSendForm > div,
-
-    html:not(.stb-disabled)
-    #send_form.sillytypingbar
-    #rightSendForm > div {
-
-        min-width: 32px;
-
-    }
-
 }
 
 
 /* =========================================================
-   VERY SMALL SCREENS
+   SMALL PHONES
    ========================================================= */
 
 @media screen and (max-width: 400px) {
@@ -443,17 +722,81 @@ html.stb-no-shadow
     #send_form.sillytypingbar {
 
         width:
-            calc(
-                100% - 16px
-            ) !important;
-
+            calc(100% - 16px) !important;
     }
 
-    html:not(.stb-disabled)
+
     #send_form.sillytypingbar::before {
 
-        left: 62px;
-
+        left:
+            60px !important;
     }
+}
 
+
+/* =========================================================
+   DISABLED
+   ========================================================= */
+
+html.stb-disabled
+#form_sheld.sillytypingbar-host {
+
+    position:
+        relative !important;
+
+    top:
+        auto !important;
+
+    bottom:
+        auto !important;
+
+    left:
+        auto !important;
+
+    right:
+        auto !important;
+
+    width:
+        100% !important;
+
+    pointer-events:
+        auto !important;
+}
+
+
+html.stb-disabled
+#send_form.sillytypingbar {
+
+    position:
+        relative !important;
+
+    width:
+        100% !important;
+
+    height:
+        auto !important;
+
+    min-height:
+        0 !important;
+
+    margin:
+        0 !important;
+
+    padding:
+        initial !important;
+
+    border:
+        initial !important;
+
+    border-radius:
+        initial !important;
+
+    background:
+        initial !important;
+
+    box-shadow:
+        initial !important;
+
+    transform:
+        none !important;
 }
