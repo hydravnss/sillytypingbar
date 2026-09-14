@@ -1,19 +1,16 @@
 /* =========================================================
-   SILLYTYPINGBAR
-   ROBUST MOBILE VERSION
+   SILLYTYPINGBAR — PORTAL
    ========================================================= */
 
 :root {
-
     --stb-width: 96%;
     --stb-height: 62px;
-
     --stb-radius: 32px;
 
     --stb-border-width: 2px;
     --stb-border-color: #34351f;
 
-    --stb-background: rgba(0, 0, 0, 0.92);
+    --stb-background: rgba(0,0,0,.92);
 
     --stb-accent-color: #c71945;
     --stb-accent-width: 4px;
@@ -28,13 +25,41 @@
 
 
 /* =========================================================
-   HOST
+   PORTAL
    ========================================================= */
 
-html:not(.stb-disabled)
-#form_sheld.sillytypingbar-host {
+#sillytypingbar-portal {
 
     position: fixed !important;
+
+    inset: 0 !important;
+
+    width: 100vw !important;
+    height: 100dvh !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    background: transparent !important;
+
+    border: 0 !important;
+
+    pointer-events: none !important;
+
+    overflow: visible !important;
+
+    z-index: 2147483640 !important;
+}
+
+
+/* =========================================================
+   FORM HOST
+   ========================================================= */
+
+#sillytypingbar-portal
+#form_sheld.sillytypingbar-host {
+
+    position: absolute !important;
 
     left: 0 !important;
     right: 0 !important;
@@ -49,11 +74,7 @@ html:not(.stb-disabled)
 
     width: 100% !important;
 
-    height: auto !important;
-    min-height: 0 !important;
-
     margin: 0 !important;
-
     padding: 0 !important;
 
     background: transparent !important;
@@ -62,17 +83,18 @@ html:not(.stb-disabled)
 
     box-shadow: none !important;
 
-    z-index: 99999 !important;
-
     overflow: visible !important;
 
     pointer-events: none !important;
+
+    z-index: 2147483641 !important;
 }
 
 
 /* TOP */
 
 html.stb-position-top
+#sillytypingbar-portal
 #form_sheld.sillytypingbar-host {
 
     top:
@@ -86,24 +108,23 @@ html.stb-position-top
 
 
 /* =========================================================
-   MAIN BAR
+   BAR
    ========================================================= */
 
-html:not(.stb-disabled)
+#sillytypingbar-portal
 #send_form.sillytypingbar {
 
     position: relative !important;
 
-    left: auto !important;
-    right: auto !important;
-    top: auto !important;
-    bottom: auto !important;
+    display: flex !important;
+
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+
+    align-items: center !important;
 
     width:
         var(--stb-width) !important;
-
-    max-width:
-        none !important;
 
     height:
         var(--stb-height) !important;
@@ -111,35 +132,13 @@ html:not(.stb-disabled)
     min-height:
         var(--stb-height) !important;
 
-    max-height:
-        none !important;
-
     margin:
         0 auto !important;
 
     padding:
         4px 8px !important;
 
-    box-sizing:
-        border-box !important;
-
-    display:
-        flex !important;
-
-    flex-direction:
-        row !important;
-
-    flex-wrap:
-        nowrap !important;
-
-    align-items:
-        center !important;
-
-    justify-content:
-        flex-start !important;
-
-    gap:
-        0 !important;
+    box-sizing: border-box !important;
 
     background:
         var(--stb-background) !important;
@@ -152,208 +151,68 @@ html:not(.stb-disabled)
     border-radius:
         var(--stb-radius) !important;
 
-    box-shadow:
-        0 8px 30px
-        rgba(0, 0, 0, .35) !important;
-
     backdrop-filter:
         blur(var(--stb-blur)) !important;
 
     -webkit-backdrop-filter:
         blur(var(--stb-blur)) !important;
 
+    box-shadow:
+        0 8px 30px
+        rgba(0,0,0,.35) !important;
+
     overflow:
         visible !important;
-
-    opacity:
-        1 !important;
-
-    visibility:
-        visible !important;
-
-    transform:
-        none !important;
 
     pointer-events:
         auto !important;
 
     z-index:
-        100000 !important;
+        2147483642 !important;
 }
 
 
 /* =========================================================
-   NO SHADOW
+   LEFT
    ========================================================= */
 
-html.stb-no-shadow
-#send_form.sillytypingbar {
-
-    box-shadow: none !important;
-}
-
-
-/* =========================================================
-   LEFT AREA
-   ========================================================= */
-
-#send_form.sillytypingbar
+#sillytypingbar-portal
 #leftSendForm {
 
-    display:
-        flex !important;
+    display: flex !important;
 
-    flex:
-        0 0 auto !important;
+    flex: 0 0 auto !important;
 
-    width:
-        auto !important;
+    width: auto !important;
+    min-width: 0 !important;
 
-    min-width:
-        0 !important;
+    height: 100% !important;
 
-    height:
-        100% !important;
+    align-items: center !important;
 
-    margin:
-        0 !important;
-
-    padding:
-        0 !important;
-
-    align-items:
-        center !important;
-
-    justify-content:
-        flex-start !important;
-
-    flex-wrap:
-        nowrap !important;
-
-    order:
-        1 !important;
-
-    overflow:
-        visible !important;
+    overflow: visible !important;
 }
 
 
 /* =========================================================
-   RIGHT AREA
+   CENTER
    ========================================================= */
 
-#send_form.sillytypingbar
-#rightSendForm {
-
-    display:
-        flex !important;
-
-    flex:
-        0 0 auto !important;
-
-    width:
-        auto !important;
-
-    min-width:
-        0 !important;
-
-    height:
-        100% !important;
-
-    margin:
-        0 !important;
-
-    padding:
-        0 !important;
-
-    align-items:
-        center !important;
-
-    justify-content:
-        flex-end !important;
-
-    flex-wrap:
-        nowrap !important;
-
-    order:
-        3 !important;
-
-    overflow:
-        visible !important;
-}
-
-
-/* =========================================================
-   EXTENSION BUTTONS
-   ========================================================= */
-
-#send_form.sillytypingbar
-#leftSendForm > *,
-#send_form.sillytypingbar
-#rightSendForm > * {
-
-    flex:
-        0 0 auto !important;
-
-    width:
-        auto !important;
-
-    min-width:
-        0 !important;
-
-    display:
-        flex !important;
-
-    align-items:
-        center !important;
-
-    justify-content:
-        center !important;
-
-    visibility:
-        visible !important;
-
-    opacity:
-        1 !important;
-}
-
-
-/* =========================================================
-   CENTRAL AREA
-   ========================================================= */
-
-#send_form.sillytypingbar
+#sillytypingbar-portal
 #nonQRFormItems {
 
-    display:
-        flex !important;
+    display: flex !important;
 
-    flex:
-        1 1 auto !important;
+    flex: 1 1 auto !important;
 
-    width:
-        auto !important;
+    width: auto !important;
+    min-width: 0 !important;
 
-    min-width:
-        0 !important;
+    height: 100% !important;
 
-    height:
-        100% !important;
+    align-items: center !important;
 
-    margin:
-        0 !important;
-
-    padding:
-        0 !important;
-
-    align-items:
-        center !important;
-
-    overflow:
-        visible !important;
-
-    order:
-        2 !important;
+    overflow: visible !important;
 }
 
 
@@ -361,65 +220,42 @@ html.stb-no-shadow
    TEXTAREA
    ========================================================= */
 
-#send_form.sillytypingbar
+#sillytypingbar-portal
 #send_textarea {
 
-    display:
-        block !important;
+    display: block !important;
 
-    position:
-        relative !important;
+    flex: 1 1 auto !important;
 
-    flex:
-        1 1 auto !important;
+    width: auto !important;
 
-    width:
-        auto !important;
+    min-width: 40px !important;
 
-    min-width:
-        40px !important;
+    height: 42px !important;
 
-    height:
-        100% !important;
+    min-height: 42px !important;
 
-    min-height:
-        42px !important;
+    margin: 0 !important;
 
-    max-height:
-        120px !important;
+    padding: 8px 12px !important;
 
-    margin:
-        0 !important;
+    box-sizing: border-box !important;
 
-    padding:
-        8px 12px !important;
+    background: transparent !important;
 
-    box-sizing:
-        border-box !important;
+    border: 0 !important;
 
-    resize:
-        none !important;
+    outline: 0 !important;
 
-    overflow-x:
-        hidden !important;
+    box-shadow: none !important;
 
-    overflow-y:
-        auto !important;
+    color: #f5f5f7 !important;
 
-    background:
-        transparent !important;
+    resize: none !important;
 
-    border:
-        0 !important;
+    overflow-x: hidden !important;
 
-    outline:
-        none !important;
-
-    box-shadow:
-        none !important;
-
-    color:
-        var(--SmartThemeBodyColor) !important;
+    overflow-y: auto !important;
 
     font-family:
         -apple-system,
@@ -433,89 +269,31 @@ html.stb-no-shadow
     font-size:
         var(--stb-text-size) !important;
 
-    line-height:
-        22px !important;
-
-    font-weight:
-        400 !important;
-
-    opacity:
-        1 !important;
-
-    visibility:
-        visible !important;
-
-    order:
-        2 !important;
-
-    z-index:
-        5 !important;
+    line-height: 22px !important;
 }
 
 
 /* =========================================================
-   PLACEHOLDER
+   RIGHT
    ========================================================= */
 
-#send_form.sillytypingbar
-#send_textarea::placeholder {
+#sillytypingbar-portal
+#rightSendForm {
 
-    color:
-        #999999 !important;
+    display: flex !important;
 
-    opacity:
-        .85 !important;
+    flex: 0 0 auto !important;
 
-    font-size:
-        var(--stb-text-size) !important;
+    width: auto !important;
+    min-width: 0 !important;
 
-    white-space:
-        nowrap !important;
-}
+    height: 100% !important;
 
+    align-items: center !important;
 
-/* =========================================================
-   SEND BUTTON
-   ========================================================= */
+    justify-content: flex-end !important;
 
-#send_form.sillytypingbar
-#send_but {
-
-    flex:
-        0 0 40px !important;
-
-    width:
-        40px !important;
-
-    min-width:
-        40px !important;
-
-    height:
-        40px !important;
-
-    min-height:
-        40px !important;
-
-    margin:
-        0 !important;
-
-    padding:
-        0 !important;
-
-    display:
-        flex !important;
-
-    align-items:
-        center !important;
-
-    justify-content:
-        center !important;
-
-    border-radius:
-        50% !important;
-
-    box-sizing:
-        border-box !important;
+    overflow: visible !important;
 }
 
 
@@ -523,101 +301,44 @@ html.stb-no-shadow
    BUTTONS
    ========================================================= */
 
-#send_form.sillytypingbar button {
+#sillytypingbar-portal
+#send_form button {
 
-    opacity:
-        1 !important;
+    visibility: visible !important;
 
-    visibility:
-        visible !important;
+    opacity: 1 !important;
 }
 
 
 /* =========================================================
-   ACCENT BAR
+   ACCENT
    ========================================================= */
 
+#sillytypingbar-portal
 #send_form.sillytypingbar::before {
 
-    content:
-        "" !important;
+    content: "" !important;
 
-    position:
-        absolute !important;
+    position: absolute !important;
 
-    left:
-        70px !important;
+    left: 70px !important;
 
-    top:
-        50% !important;
+    top: 50% !important;
 
     width:
         var(--stb-accent-width) !important;
 
-    height:
-        32px !important;
+    height: 32px !important;
 
     transform:
         translateY(-50%) !important;
 
-    border-radius:
-        10px !important;
+    border-radius: 10px !important;
 
     background:
         var(--stb-accent-color) !important;
 
-    pointer-events:
-        none !important;
-
-    z-index:
-        10 !important;
-}
-
-
-/* =========================================================
-   FOCUS
-   ========================================================= */
-
-#send_form.sillytypingbar:focus-within {
-
-    border-color:
-        color-mix(
-            in srgb,
-            var(--stb-border-color),
-            white 18%
-        ) !important;
-}
-
-
-/* =========================================================
-   CHAT SPACE
-   ========================================================= */
-
-html:not(.stb-position-top)
-#chat {
-
-    padding-bottom:
-        calc(
-            var(--stb-height)
-            + 30px
-            + env(safe-area-inset-bottom)
-        ) !important;
-}
-
-
-/* =========================================================
-   TOP MODE CHAT
-   ========================================================= */
-
-html.stb-position-top
-#chat {
-
-    padding-top:
-        calc(
-            var(--stb-height)
-            + 30px
-            + env(safe-area-inset-top)
-        ) !important;
+    pointer-events: none !important;
 }
 
 
@@ -627,7 +348,7 @@ html.stb-position-top
 
 @media screen and (max-width: 700px) {
 
-    html:not(.stb-disabled)
+    #sillytypingbar-portal
     #send_form.sillytypingbar {
 
         width:
@@ -642,94 +363,23 @@ html.stb-position-top
         min-height:
             var(--stb-height) !important;
 
-        padding:
-            4px 7px !important;
-
         border-radius:
             var(--stb-radius) !important;
     }
 
-
-    #send_form.sillytypingbar
+    #sillytypingbar-portal
     #send_textarea {
 
-        flex:
-            1 1 auto !important;
+        flex: 1 1 auto !important;
 
-        width:
-            auto !important;
+        min-width: 40px !important;
 
-        min-width:
-            40px !important;
+        height: 42px !important;
 
-        height:
-            100% !important;
-
-        min-height:
-            42px !important;
-
-        padding:
-            8px 10px !important;
+        min-height: 42px !important;
 
         font-size:
             var(--stb-text-size) !important;
-    }
-
-
-    #send_form.sillytypingbar
-    #nonQRFormItems {
-
-        flex:
-            1 1 auto !important;
-
-        min-width:
-            0 !important;
-    }
-
-
-    #send_form.sillytypingbar
-    #send_but {
-
-        flex:
-            0 0 40px !important;
-
-        width:
-            40px !important;
-
-        min-width:
-            40px !important;
-
-        height:
-            40px !important;
-    }
-
-
-    #send_form.sillytypingbar::before {
-
-        left:
-            70px !important;
-    }
-}
-
-
-/* =========================================================
-   SMALL PHONES
-   ========================================================= */
-
-@media screen and (max-width: 400px) {
-
-    html:not(.stb-disabled)
-    #send_form.sillytypingbar {
-
-        width:
-            calc(100% - 16px) !important;
-    }
-
-
-    #send_form.sillytypingbar::before {
-
-        left:
-            60px !important;
     }
 }
 
@@ -739,64 +389,7 @@ html.stb-position-top
    ========================================================= */
 
 html.stb-disabled
-#form_sheld.sillytypingbar-host {
+#sillytypingbar-portal {
 
-    position:
-        relative !important;
-
-    top:
-        auto !important;
-
-    bottom:
-        auto !important;
-
-    left:
-        auto !important;
-
-    right:
-        auto !important;
-
-    width:
-        100% !important;
-
-    pointer-events:
-        auto !important;
-}
-
-
-html.stb-disabled
-#send_form.sillytypingbar {
-
-    position:
-        relative !important;
-
-    width:
-        100% !important;
-
-    height:
-        auto !important;
-
-    min-height:
-        0 !important;
-
-    margin:
-        0 !important;
-
-    padding:
-        initial !important;
-
-    border:
-        initial !important;
-
-    border-radius:
-        initial !important;
-
-    background:
-        initial !important;
-
-    box-shadow:
-        initial !important;
-
-    transform:
-        none !important;
+    display: none !important;
 }
